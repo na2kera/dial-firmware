@@ -12,6 +12,7 @@ struct MenuItem {
 
 constexpr MenuItem items[] = {
     {"QR Manager", App::QrManager},
+    {"Device Info", App::DeviceInfo},
 };
 constexpr int item_count = sizeof(items) / sizeof(items[0]);
 int selected = 0;
@@ -34,14 +35,29 @@ void show() {
     d.setTextColor(CYAN, BLACK);
     d.drawString("APPS", 120, 32);
 
-    d.fillRoundRect(35, 55, 170, 143, 18, 0x1082);
-    drawFinder(94, 80);
-    drawFinder(127, 80);
-    drawFinder(94, 113);
-    d.fillRect(127, 113, 6, 6, WHITE);
-    d.fillRect(137, 113, 4, 4, WHITE);
-    d.fillRect(127, 123, 4, 4, WHITE);
-    d.fillRect(137, 125, 6, 6, WHITE);
+    if (item_count > 1) {
+        d.fillRoundRect(4, 83, 30, 74, 10, DARKGREY);
+        d.fillRoundRect(206, 83, 30, 74, 10, DARKGREY);
+        d.setTextColor(WHITE, DARKGREY);
+        d.drawString("<", 19, 120);
+        d.drawString(">", 221, 120);
+    }
+
+    d.fillRoundRect(38, 55, 164, 143, 18, 0x1082);
+    if (items[selected].app == App::QrManager) {
+        drawFinder(94, 80);
+        drawFinder(127, 80);
+        drawFinder(94, 113);
+        d.fillRect(127, 113, 6, 6, WHITE);
+        d.fillRect(137, 113, 4, 4, WHITE);
+        d.fillRect(127, 123, 4, 4, WHITE);
+        d.fillRect(137, 125, 6, 6, WHITE);
+    } else {
+        d.drawCircle(120, 108, 33, WHITE);
+        d.setFont(&fonts::Font7);
+        d.setTextColor(WHITE, 0x1082);
+        d.drawString("i", 120, 105);
+    }
 
     d.setFont(&fonts::Font4);
     d.setTextColor(WHITE, 0x1082);
@@ -49,7 +65,7 @@ void show() {
 
     d.setFont(&fonts::Font2);
     d.setTextColor(CYAN, BLACK);
-    d.drawString("PRESS TO OPEN", 120, 218);
+    d.drawString(String(selected + 1) + "/" + String(item_count) + "  PRESS TO OPEN", 120, 218);
 }
 
 void move(long delta) {

@@ -40,6 +40,9 @@ void show() {
 
     if (qr_only) {
         drawQr(item, 36, 36, 168);
+        d.setFont(&fonts::Font2);
+        d.setTextColor(CYAN, BLACK);
+        d.drawString("HOLD: HOME", 120, 222);
         return;
     }
 
@@ -49,7 +52,7 @@ void show() {
     d.drawString(item.name, 135, 28);
     drawQr(item, 43, 55, 154);
     d.setTextColor(CYAN, BLACK);
-    d.drawString(String(selected + 1) + "/" + String(item_count), 120, 222);
+    d.drawString(String(selected + 1) + "/" + String(item_count) + "  HOLD: HOME", 120, 222);
 }
 
 void move(long delta) {
