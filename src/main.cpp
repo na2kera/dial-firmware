@@ -1,5 +1,6 @@
 #include <M5Dial.h>
 
+#include "apps/device_info/device_info.h"
 #include "apps/qr_manager/qr_manager.h"
 #include "home/home.h"
 
@@ -8,10 +9,12 @@ namespace {
 enum class Screen {
     Home,
     QrManager,
+    DeviceInfo,
 };
 
 Screen screen = Screen::Home;
 long last_encoder_step = 0;
+bool ignore_next_release = false;
 
 }  // namespace
 
@@ -34,24 +37,40 @@ void loop() {
         last_encoder_step = encoder_step;
         if (screen == Screen::Home) {
             Home::move(delta);
-        } else {
+        } else if (screen == Screen::QrManager) {
             QrManager::move(delta);
         }
     }
 
+    if (screen != Screen::Home && M5Dial.BtnA.pressedFor(900)) {
+        screen = Screen::Home;
+        ignore_next_release = true;
+        Home::show();
+        M5Dial.Speaker.tone(2000, 40);
+        Serial.println("returned: Home");
+        return;
+    }
+
     if (!M5Dial.BtnA.wasReleased()) return;
+    if (ignore_next_release) {
+        ignore_next_release = false;
+        return;
+    }
 
     if (screen == Screen::Home) {
-        if (Home::selectedApp() == Home::App::QrManager) {
-            screen = Screen::QrManager;
-            QrManager::show();
-            Serial.println("opened: QR Manager");
+        switch (Home::selectedApp()) {
+            case Home::App::QrManager:
+                screen = Screen::QrManager;
+                QrManager::show();
+                Serial.println("opened: QR Manager");
+                break;
+            case Home::App::DeviceInfo:
+                screen = Screen::DeviceInfo;
+                DeviceInfo::show();
+                Serial.println("opened: Device Info");
+                break;
         }
-    } else if (M5Dial.BtnA.wasReleaseFor(900)) {
-        screen = Screen::Home;
-        Home::show();
-        Serial.println("returned: Home");
-    } else {
+    } else if (screen == Screen::QrManager) {
         QrManager::toggleQrOnly();
     }
 

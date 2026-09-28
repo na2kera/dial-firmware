@@ -1,13 +1,16 @@
 # M5Dial firmware
 
-M5Dial v1.1 用のホームメニューとアプリをまとめたファームウェアです。起動するとホームが表示され、ボタンを押して QR Manager を開きます。今後のアプリは `src/apps/` に追加できます。
+M5Dial v1.1 用のホームメニューとアプリをまとめたファームウェアです。起動するとホームが表示され、ダイヤルでアプリを選び、ボタンを押して開きます。今後のアプリは `src/apps/` に追加できます。
 
 ## 操作
 
 | 画面 | 回転 | 短押し | 約1秒の長押し |
 | --- | --- | --- | --- |
-| ホーム | メニュー項目を選択（現在は1項目） | QR Managerを開く | QR Managerを開く |
+| ホーム | QR ManagerとDevice Infoを巡回して選択 | 選んだアプリを開く | 選んだアプリを開く |
 | QR Manager | X、GitHub、PeachTechを切り替え | QRコードを拡大・元に戻す | ホームに戻る |
+| Device Info | - | - | ホームに戻る |
+
+アプリ内ではボタンを約1秒押し続けると、その時点でホームに戻ります。
 
 QR Managerの登録内容:
 
@@ -33,6 +36,7 @@ pio run -t upload
 - `src/main.cpp`: 起動処理と画面間の操作
 - `src/home/`: ホームメニュー
 - `src/apps/qr_manager/`: QR Manager本体と埋め込みアイコン
+- `src/apps/device_info/`: 端末情報画面
 - `assets/source/`: 受け取った元画像
 - `assets/icons/`: 画面向けの32×32 PNG
 - `tools/embed_icons.py`: PNGから `src/apps/qr_manager/icons.h` を再生成するスクリプト

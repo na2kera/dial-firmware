@@ -4,6 +4,7 @@ namespace Home {
 
 enum class App {
     QrManager,
+    DeviceInfo,
 };
 
 void show();
