@@ -11,12 +11,14 @@ struct QrItem {
     const char *content;
     const uint8_t *icon;
     unsigned int icon_size;
+    const lgfx::IFont *font;
 };
 
 constexpr QrItem items[] = {
-    {"X", "https://x.com/na2kera_0510", icon_x, icon_x_size},
-    {"GitHub", "https://github.com/na2kera", icon_github, icon_github_size},
-    {"PeachTech", "https://x.com/PeachTech_0927", icon_peachtech, icon_peachtech_size},
+    {"X", "https://x.com/na2kera_0510", icon_x, icon_x_size, &fonts::Font2},
+    {"GitHub", "https://github.com/na2kera", icon_github, icon_github_size, &fonts::Font2},
+    {"PeachTech", "https://x.com/PeachTech_0927", icon_peachtech, icon_peachtech_size, &fonts::Font2},
+    {"化身デモ", "https://mobile-mr-keshin.na2kera.workers.dev/demos/ex9-1-keshin/", nullptr, 0, &fonts::efontJA_16},
 };
 constexpr int item_count = sizeof(items) / sizeof(items[0]);
 
@@ -46,11 +48,14 @@ void show() {
         return;
     }
 
-    d.drawPng(item.icon, item.icon_size, 57, 19, 32, 32);
-    d.setFont(&fonts::Font2);
+    if (item.icon != nullptr) {
+        d.drawPng(item.icon, item.icon_size, 57, 19, 32, 32);
+    }
+    d.setFont(item.font);
     d.setTextColor(WHITE, BLACK);
-    d.drawString(item.name, 135, 28);
+    d.drawString(item.name, item.icon != nullptr ? 135 : 120, 28);
     drawQr(item, 43, 55, 154);
+    d.setFont(&fonts::Font2);
     d.setTextColor(CYAN, BLACK);
     d.drawString(String(selected + 1) + "/" + String(item_count) + "  HOLD: HOME", 120, 222);
 }
