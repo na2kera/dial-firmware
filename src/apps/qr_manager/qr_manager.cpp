@@ -19,6 +19,7 @@ constexpr QrItem items[] = {
     {"GitHub", "https://github.com/na2kera", icon_github, icon_github_size, &fonts::Font2},
     {"PeachTech", "https://x.com/PeachTech_0927", icon_peachtech, icon_peachtech_size, &fonts::Font2},
     {"化身デモ", "https://mobile-mr-keshin.na2kera.workers.dev/demos/ex9-1-keshin/", nullptr, 0, &fonts::efontJA_16},
+    {"RoboGacha", "https://robogacha.na2kera.com/", nullptr, 0, &fonts::Font2},
 };
 constexpr int item_count = sizeof(items) / sizeof(items[0]);
 

@@ -7,7 +7,7 @@ M5Dial v1.1 用のホームメニューとアプリをまとめたファーム�
 | 画面 | 回転 | 短押し | 約1秒の長押し |
 | --- | --- | --- | --- |
 | ホーム | QR ManagerとDevice Infoを巡回して選択 | 選んだアプリを開く | 選んだアプリを開く |
-| QR Manager | X、GitHub、PeachTech、化身デモを切り替え | QRコードを拡大・元に戻す | ホームに戻る |
+| QR Manager | X、GitHub、PeachTech、化身デモ、RoboGachaを切り替え | QRコードを拡大・元に戻す | ホームに戻る |
 | Device Info | - | - | ホームに戻る |
 
 アプリ内ではボタンを約1秒押し続けると、その時点でホームに戻ります。
@@ -20,6 +20,7 @@ QR Managerの登録内容:
 | GitHub | https://github.com/na2kera |
 | PeachTech | https://x.com/PeachTech_0927 |
 | 化身デモ | https://mobile-mr-keshin.na2kera.workers.dev/demos/ex9-1-keshin/ |
+| RoboGacha | https://robogacha.na2kera.com/ |
 
 ## ビルドと書き込み
 
